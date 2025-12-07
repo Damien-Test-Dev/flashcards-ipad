@@ -1,0 +1,117 @@
+/* Reset léger */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, system-ui, "SF Pro Text", sans-serif;
+  background: radial-gradient(circle at top, #1b2735 0, #090a0f 60%, #000 100%);
+  color: #f5f5f5;
+}
+
+/* Container global, centré sur l'écran de l'iPad */
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+/* Carte type Yu-Gi-Oh, optimisée pour viewport iPad ~768x1024 */
+.card {
+  width: min(90vw, 720px);   /* adapté à la largeur logique de 768px */
+  height: min(85vh, 980px);  /* occupe la majorité de la hauteur */
+  background: #d9c89a;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #a88b4a;
+}
+
+/* En-tête de la carte : thème / titre / icône */
+.card-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.card-theme {
+  justify-self: start;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-title {
+  justify-self: center;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+}
+
+.card-icon {
+  justify-self: end;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* Corps de la carte : image + texte */
+.card-body {
+  flex: 1;
+  background: #f5f0e6;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 2px solid #c3a46a;
+}
+
+.card-image {
+  flex: 1;
+  border-radius: 10px;
+  border: 2px solid #b48a3c;
+  background: linear-gradient(135deg, #254b82, #7b1f5b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f5f5;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px;
+}
+
+.card-text {
+  min-height: 80px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #222;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* Bas de la carte : stats + numéro */
+.card-footer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.card-stats {
+  font-weight: 700;
+}
+
+.card-number {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.8;
+}
