@@ -33,17 +33,35 @@ body {
   border: 3px solid #a88b4a;
 }
 
-/* En-tête : thème / titre / icône */
+/* En-tête : bouton mélanger + thème / titre / icône */
 .card-header {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   margin-bottom: 8px;
   font-size: 14px;
 }
 
+.card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.shuffle-button {
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: none;
+  background: #1b2735;
+  color: #f5f5f5;
+  font-size: 14px;
+}
+
+.shuffle-button:active {
+  transform: scale(0.95);
+}
+
 .card-theme {
-  justify-self: start;
   font-weight: 600;
   text-transform: uppercase;
 }
