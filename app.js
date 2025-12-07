@@ -1,9 +1,9 @@
 // app.js
-// Sprint 4 :
-// - deck de 40 cartes avec id type "card1"... "card40"
-// - navigation via boutons Précédente / Suivante
-// - bouton Mélanger (🔀) qui shuffle le deck
-// - numérotation en bas = position dans le deck (1/40, 2/40, ...)
+// Sprint 5 :
+// - plus de boutons précédent/suivant
+// - un bouton Mélanger (🔀) qui tire la carte suivante dans un ordre aléatoire
+// - sur un cycle : 40 clics = 40 cartes différentes
+// - chaque carte a un id unique (card1 ... card40)
 
 // --- Utilitaire debug (affiche les messages dans la page + console) ---
 function debug(message) {
@@ -21,8 +21,7 @@ function debug(message) {
 }
 
 // 1) Deck de 40 cartes (générées en JS)
-// cardId = identifiant unique de collection (card1, card2, ...),
-// la position d'affichage dépend de l'ordre dans le tableau "cards".
+// cardId = identifiant unique de la carte, indépendant de sa position.
 var cards = [];
 for (var i = 1; i <= 40; i++) {
   cards.push({
@@ -35,11 +34,35 @@ for (var i = 1; i <= 40; i++) {
   });
 }
 
-// Index de la carte actuellement affichée (0 = première carte du deck)
-var currentIndex = 0;
+// Index de la carte actuellement affichée (dans le tableau cards)
+var currentIndex = -1;
 
-// 2) Rendu d'une carte dans le DOM
-function renderCard(card) {
+// Ordre mélangé des indices (0..39)
+var shuffledOrder = [];
+// Position actuelle dans l'ordre mélangé (0..39)
+var shufflePosition = 0;
+
+// 2) Construire un nouvel ordre mélangé (Fisher-Yates)
+function buildNewShuffleOrder() {
+  shuffledOrder = [];
+  for (var i = 0; i < cards.length; i++) {
+    shuffledOrder.push(i);
+  }
+
+  // Fisher-Yates
+  for (var j = shuffledOrder.length - 1; j > 0; j--) {
+    var k = Math.floor(Math.random() * (j + 1));
+    var tmp = shuffledOrder[j];
+    shuffledOrder[j] = shuffledOrder[k];
+    shuffledOrder[k] = tmp;
+  }
+
+  shufflePosition = 0;
+  debug("Nouveau mélange généré.");
+}
+
+// 3) Rendu d'une carte dans le DOM
+function renderCard(card, positionInCycle) {
   var themeEl = document.getElementById("card-theme");
   var titleEl = document.getElementById("card-title");
   var iconEl = document.getElementById("card-icon");
@@ -59,57 +82,63 @@ function renderCard(card) {
   textEl.textContent = card.text;
 
   var total = cards.length;
-  var currentNumber = currentIndex + 1; // position dans le deck
+  // positionInCycle = 1..40 sur le cycle actuel
+  var currentNumber;
+  if (typeof positionInCycle === "number") {
+    currentNumber = positionInCycle;
+  } else if (currentIndex >= 0) {
+    currentNumber = currentIndex + 1;
+  } else {
+    currentNumber = 0;
+  }
+
   var formatted = ("000" + currentNumber).slice(-3);
   var formattedTotal = ("000" + total).slice(-3);
 
   numberEl.textContent = "Carte " + formatted + " / " + formattedTotal;
 
-  debug("Carte affichée: index=" + currentIndex + " (cardId=" + card.cardId + ")");
+  debug(
+    "Carte affichée: index=" +
+      currentIndex +
+      " (cardId=" +
+      card.cardId +
+      "), position dans le cycle=" +
+      currentNumber
+  );
 }
 
-// 3) Fonctions de navigation
-function showNextCard() {
+// 4) Tirer la carte suivante de l'ordre mélangé
+function drawNextCardFromShuffle() {
   if (cards.length === 0) {
     debug("Aucune carte dans le deck.");
     return;
   }
-  currentIndex = (currentIndex + 1) % cards.length;
-  debug("showNextCard -> nouvel index = " + currentIndex);
-  renderCard(cards[currentIndex]);
-}
 
-function showPrevCard() {
-  if (cards.length === 0) {
-    debug("Aucune carte dans le deck.");
-    return;
-  }
-  currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-  debug("showPrevCard -> nouvel index = " + currentIndex);
-  renderCard(cards[currentIndex]);
-}
-
-// 4) Mélange du deck (Fisher-Yates shuffle)
-function shuffleDeck() {
-  if (cards.length <= 1) {
-    debug("Pas assez de cartes pour mélanger.");
-    return;
+  // Si on a consommé toutes les cartes du cycle, on régénère un ordre
+  if (shuffledOrder.length === 0 || shufflePosition >= shuffledOrder.length) {
+    debug("Fin du cycle, génération d'un nouveau mélange.");
+    buildNewShuffleOrder();
   }
 
-  debug("Mélange du deck...");
+  var index = shuffledOrder[shufflePosition];
+  currentIndex = index;
 
-  // Algorithme de Fisher-Yates
-  for (var i = cards.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = cards[i];
-    cards[i] = cards[j];
-    cards[j] = temp;
-  }
+  // position dans le cycle = 1..40
+  var positionInCycle = shufflePosition + 1;
 
-  // Après mélange, on revient à la première position du deck
-  currentIndex = 0;
-  renderCard(cards[currentIndex]);
-  debug("Deck mélangé. Nouvelle première carte: cardId=" + cards[0].cardId);
+  shufflePosition++;
+
+  var card = cards[currentIndex];
+  renderCard(card, positionInCycle);
+
+  debug(
+    "Carte tirée: index=" +
+      currentIndex +
+      " (cardId=" +
+      card.cardId +
+      "), position dans le cycle=" +
+      positionInCycle
+  );
 }
 
 // 5) Initialisation quand la page est prête
@@ -121,40 +150,19 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  currentIndex = 0;
-  renderCard(cards[currentIndex]);
+  // Préparer un premier ordre mélangé, mais ne pas tirer de carte tant que l'utilisateur n'a pas cliqué.
+  buildNewShuffleOrder();
 
-  // Boutons navigation
-  var btnPrev = document.getElementById("btn-prev");
-  var btnNext = document.getElementById("btn-next");
   var btnShuffle = document.getElementById("btn-shuffle");
-
-  if (btnPrev) {
-    btnPrev.addEventListener("click", function () {
-      debug("Click sur bouton Précédente");
-      showPrevCard();
-    });
-  } else {
-    debug("Bouton btn-prev introuvable");
-  }
-
-  if (btnNext) {
-    btnNext.addEventListener("click", function () {
-      debug("Click sur bouton Suivante");
-      showNextCard();
-    });
-  } else {
-    debug("Bouton btn-next introuvable");
-  }
 
   if (btnShuffle) {
     btnShuffle.addEventListener("click", function () {
       debug("Click sur bouton Mélanger (🔀)");
-      shuffleDeck();
+      drawNextCardFromShuffle();
     });
   } else {
     debug("Bouton btn-shuffle introuvable");
   }
 
-  debug("Initialisation terminée.");
+  debug("Initialisation terminée. Prêt pour le premier tirage.");
 });
