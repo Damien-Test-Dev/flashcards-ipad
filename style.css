@@ -102,29 +102,56 @@ body {
   overflow-y: auto;               /* si jamais le texte est un peu long */
 }
 
-/* Footer : stats + numéro */
+/* Footer : uniquement numéro de carte */
 .card-footer {
   margin-top: 10px;
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
   font-size: 14px;
 }
 
-.card-stats {
-  font-weight: 700;
-}
-
 .card-number {
-  margin-left: auto;
   font-size: 12px;
   opacity: 0.85;
 }
 
-/* Indication d'utilisation (toucher à gauche/droite) */
+/* Boutons de navigation */
+.card-nav-buttons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.card-nav-buttons button {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  background: #1b2735;
+  color: #f5f5f5;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.card-nav-buttons button:active {
+  transform: scale(0.97);
+}
+
+/* Indication d'utilisation */
 .card-hint {
   margin-top: 4px;
   font-size: 11px;
-  display: flex;
-  justify-content: space-between;
-  color: rgba(0, 0, 0, 0.68);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Zone debug : affichage des logs JS directement dans la page */
+.debug-log {
+  margin-top: 4px;
+  font-size: 10px;
+  max-height: 60px;
+  overflow-y: auto;
+  color: #111;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  padding: 4px 6px;
 }
