@@ -1,9 +1,10 @@
 // app.js
-// Sprint 5 :
-// - plus de boutons précédent/suivant
-// - un bouton Mélanger (🔀) qui tire la carte suivante dans un ordre aléatoire
-// - sur un cycle : 40 clics = 40 cartes différentes
-// - chaque carte a un id unique (card1 ... card40)
+// Refactor UI :
+// - plus de thème ni icône étoile
+// - compteur Carte XXX / 040 à côté du bouton 🔀
+// - ID de la carte en bas au centre
+// - aucune carte réelle affichée au chargement (état neutre)
+// - 40 clics = 40 cartes différentes, puis nouveau cycle
 
 // --- Utilitaire debug (affiche les messages dans la page + console) ---
 function debug(message) {
@@ -26,9 +27,7 @@ var cards = [];
 for (var i = 1; i <= 40; i++) {
   cards.push({
     cardId: "card" + i,
-    theme: "MODÈLE",
     title: "Carte " + i,
-    icon: "★",
     imageLabel: "IMAGE " + i,
     text: "Contenu de placeholder pour la carte " + i + "."
   });
@@ -63,39 +62,34 @@ function buildNewShuffleOrder() {
 
 // 3) Rendu d'une carte dans le DOM
 function renderCard(card, positionInCycle) {
-  var themeEl = document.getElementById("card-theme");
   var titleEl = document.getElementById("card-title");
-  var iconEl = document.getElementById("card-icon");
   var imageEl = document.getElementById("card-image");
   var textEl = document.getElementById("card-text");
-  var numberEl = document.getElementById("card-number");
+  var cycleEl = document.getElementById("card-cycle");
+  var idEl = document.getElementById("card-id");
 
-  if (!themeEl || !titleEl || !iconEl || !imageEl || !textEl || !numberEl) {
+  if (!titleEl || !imageEl || !textEl || !cycleEl || !idEl) {
     debug("Erreur: un élément de la carte est introuvable dans le DOM.");
     return;
   }
 
-  themeEl.textContent = card.theme;
   titleEl.textContent = card.title;
-  iconEl.textContent = card.icon || "★";
   imageEl.textContent = card.imageLabel || "IMAGE";
   textEl.textContent = card.text;
 
   var total = cards.length;
-  // positionInCycle = 1..40 sur le cycle actuel
-  var currentNumber;
-  if (typeof positionInCycle === "number") {
-    currentNumber = positionInCycle;
-  } else if (currentIndex >= 0) {
-    currentNumber = currentIndex + 1;
-  } else {
-    currentNumber = 0;
-  }
+  var currentNumber = typeof positionInCycle === "number" ? positionInCycle : 0;
 
   var formatted = ("000" + currentNumber).slice(-3);
   var formattedTotal = ("000" + total).slice(-3);
 
-  numberEl.textContent = "Carte " + formatted + " / " + formattedTotal;
+  if (currentNumber === 0) {
+    cycleEl.textContent = "Carte 000 / " + formattedTotal;
+  } else {
+    cycleEl.textContent = "Carte " + formatted + " / " + formattedTotal;
+  }
+
+  idEl.textContent = "ID : " + card.cardId;
 
   debug(
     "Carte affichée: index=" +
