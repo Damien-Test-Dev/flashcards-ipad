@@ -19,10 +19,11 @@ body {
   padding: 8px;
 }
 
-/* Carte type Yu-Gi-Oh, optimisée pour viewport iPad ~768x1024 */
+/* Carte type "inspirée Yu-Gi-Oh", mais adaptée à la révision */
 .card {
-  width: min(90vw, 720px);   /* adapté à la largeur logique de 768px */
-  height: min(85vh, 980px);  /* occupe la majorité de la hauteur */
+  position: relative;
+  width: min(90vw, 720px);   /* adapté à la largeur logique de l'iPad (768px) */
+  height: min(85vh, 960px);  /* occupe la majorité de la hauteur */
   background: #d9c89a;
   border-radius: 18px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
@@ -32,7 +33,7 @@ body {
   border: 3px solid #a88b4a;
 }
 
-/* En-tête de la carte : thème / titre / icône */
+/* En-tête : thème / titre / icône */
 .card-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -50,30 +51,31 @@ body {
 .card-title {
   justify-self: center;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
 }
 
 .card-icon {
   justify-self: end;
   font-size: 18px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-/* Corps de la carte : image + texte */
+/* Corps : image + texte, avec image plus petite */
 .card-body {
   flex: 1;
   background: #f5f0e6;
   border-radius: 12px;
-  padding: 12px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   border: 2px solid #c3a46a;
 }
 
-.card-image {
-  flex: 1;
+/* Image plus contenue (environ 35–40% de la hauteur du corps) */
+.card-media {
+  flex: 0 0 38%;
   border-radius: 10px;
   border: 2px solid #b48a3c;
   background: linear-gradient(135deg, #254b82, #7b1f5b);
@@ -85,20 +87,22 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   text-align: center;
-  padding: 8px;
+  padding: 6px;
 }
 
+/* Texte : zone de révision, aérée */
 .card-text {
-  min-height: 80px;
-  font-size: 14px;
-  line-height: 1.4;
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.6;               /* plus aéré */
   color: #222;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   border-radius: 8px;
-  padding: 8px 10px;
+  padding: 10px 12px;
+  overflow-y: auto;               /* si jamais le texte est un peu long */
 }
 
-/* Bas de la carte : stats + numéro */
+/* Footer : stats + numéro */
 .card-footer {
   margin-top: 10px;
   display: flex;
@@ -113,5 +117,37 @@ body {
 .card-number {
   margin-left: auto;
   font-size: 12px;
-  opacity: 0.8;
+  opacity: 0.85;
+}
+
+/* Indication d'utilisation (toucher à gauche/droite) */
+.card-hint {
+  margin-top: 4px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(0, 0, 0, 0.68);
+}
+
+/* Zones de navigation invisibles (gauche/droite) */
+.nav-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 10;
+  /* pas de background pour rester invisibles */
+}
+
+.nav-left {
+  left: 0;
+}
+
+.nav-right {
+  right: 0;
+}
+
+/* Optionnel : changer le curseur sur desktop (sur iPad ça ne se voit pas) */
+.nav-zone {
+  cursor: pointer;
 }
