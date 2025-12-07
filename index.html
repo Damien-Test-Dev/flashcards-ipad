@@ -16,39 +16,49 @@
 </head>
 <body>
   <div class="app">
-    <div class="card">
+    <div class="card" id="card">
       <div class="card-header">
-        <!-- Haut gauche : thème -->
+        <!-- Thème / type -->
         <div class="card-theme" id="card-theme">THÈME</div>
 
-        <!-- Haut centre : titre -->
+        <!-- Titre de la carte -->
         <div class="card-title" id="card-title">Titre de la carte</div>
 
-        <!-- Haut droite : icône placeholder -->
+        <!-- Petite icône (placeholder) -->
         <div class="card-icon" id="card-icon">★</div>
       </div>
 
       <div class="card-body">
-        <!-- Centre : zone image -->
-        <div class="card-image" id="card-image">
+        <!-- Image (plus petite) -->
+        <div class="card-media" id="card-image">
           IMAGE
         </div>
 
-        <!-- Sous l'image : texte -->
+        <!-- Texte de révision, aéré -->
         <div class="card-text" id="card-text">
           Texte de la carte.
         </div>
       </div>
 
-      <!-- Bas : ATK / DEF + numéro de carte -->
+      <!-- Stats + numéro -->
       <div class="card-footer">
         <div class="card-stats" id="card-stats">
           ATK 0000 / DEF 0000
         </div>
         <div class="card-number" id="card-number">
-          N° 000
+          N° 000 / 000
         </div>
       </div>
+
+      <!-- Petite indication d'usage -->
+      <div class="card-hint">
+        <span class="hint-left">◀ toucher à gauche : carte précédente</span>
+        <span class="hint-right">toucher à droite : carte suivante ▶</span>
+      </div>
+
+      <!-- Zones de navigation invisibles (gauche/droite) -->
+      <div class="nav-zone nav-left" id="nav-left"></div>
+      <div class="nav-zone nav-right" id="nav-right"></div>
     </div>
   </div>
 
