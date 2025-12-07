@@ -40,21 +40,26 @@
         </div>
       </div>
 
-      <!-- Stats + numéro -->
+      <!-- Bas : uniquement numéro de carte -->
       <div class="card-footer">
-        <div class="card-stats" id="card-stats">
-          ATK 0000 / DEF 0000
-        </div>
         <div class="card-number" id="card-number">
-          N° 000 / 000
+          Carte 001 / 040
         </div>
       </div>
 
-      <!-- Petite indication d'usage -->
-      <div class="card-hint">
-        <span class="hint-left">◀ toucher à gauche : carte précédente</span>
-        <span class="hint-right">toucher à droite : carte suivante ▶</span>
+      <!-- Boutons de navigation -->
+      <div class="card-nav-buttons">
+        <button id="btn-prev" type="button">◀ Précédente</button>
+        <button id="btn-next" type="button">Suivante ▶</button>
       </div>
+
+      <!-- Indication d'utilisation -->
+      <div class="card-hint">
+        Navigation : utilise les boutons ci-dessus.
+      </div>
+
+      <!-- Zone debug (pour voir les logs JS) -->
+      <div id="debug-log" class="debug-log"></div>
     </div>
   </div>
 
