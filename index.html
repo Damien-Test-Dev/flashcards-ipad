@@ -18,8 +18,11 @@
   <div class="app">
     <div class="card" id="card">
       <div class="card-header">
-        <!-- Thème / type -->
-        <div class="card-theme" id="card-theme">THÈME</div>
+        <!-- Zone gauche : bouton Mélanger + thème -->
+        <div class="card-header-left">
+          <button id="btn-shuffle" type="button" class="shuffle-button">🔀</button>
+          <div class="card-theme" id="card-theme">THÈME</div>
+        </div>
 
         <!-- Titre de la carte -->
         <div class="card-title" id="card-title">Titre de la carte</div>
@@ -55,7 +58,7 @@
 
       <!-- Indication d'utilisation -->
       <div class="card-hint">
-        Navigation : utilise les boutons ci-dessus.
+        Navigation : utilise les boutons ci-dessus. Le bouton 🔀 mélange le deck.
       </div>
 
       <!-- Zone debug (pour voir les logs JS) -->
