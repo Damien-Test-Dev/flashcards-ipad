@@ -7,9 +7,10 @@ console.log("Flashcards iPad - app.js chargé");
 
 // app.js
 // Sprint 2 : plusieurs cartes + navigation gauche/droite.
+// Navigation entre cartes en touchant à gauche / à droite de la carte.
 
 // 1) Deck de cartes (exemples de démonstration)
-const cards = [
+var cards = [
   {
     id: 1,
     theme: "FOCUS",
@@ -43,17 +44,17 @@ const cards = [
 ];
 
 // Index de la carte actuellement affichée
-let currentIndex = 0;
+var currentIndex = 0;
 
 // 2) Rendu d'une carte dans le DOM
 function renderCard(card) {
-  const themeEl = document.getElementById("card-theme");
-  const titleEl = document.getElementById("card-title");
-  const iconEl = document.getElementById("card-icon");
-  const imageEl = document.getElementById("card-image");
-  const textEl = document.getElementById("card-text");
-  const statsEl = document.getElementById("card-stats");
-  const numberEl = document.getElementById("card-number");
+  var themeEl = document.getElementById("card-theme");
+  var titleEl = document.getElementById("card-title");
+  var iconEl = document.getElementById("card-icon");
+  var imageEl = document.getElementById("card-image");
+  var textEl = document.getElementById("card-text");
+  var statsEl = document.getElementById("card-stats");
+  var numberEl = document.getElementById("card-number");
 
   if (!themeEl || !titleEl || !iconEl || !imageEl || !textEl || !statsEl || !numberEl) {
     console.error("Un des éléments de la carte est introuvable dans le DOM.");
@@ -70,8 +71,8 @@ function renderCard(card) {
 
   var total = cards.length;
   var currentNumber = card.id != null ? card.id : (currentIndex + 1);
-  var formatted = String(currentNumber).padStart(3, "0");
-  var formattedTotal = String(total).padStart(3, "0");
+  var formatted = ("000" + currentNumber).slice(-3);
+  var formattedTotal = ("000" + total).slice(-3);
 
   numberEl.textContent = "N° " + formatted + " / " + formattedTotal;
 }
@@ -93,42 +94,51 @@ function showPrevCard() {
   renderCard(cards[currentIndex]);
 }
 
-// 4) Initialisation quand la page est prête
+// 4) Gestion du tap sur la carte (gauche/droite)
+function setupCardNavigation() {
+  var cardEl = document.getElementById("card");
+  if (!cardEl) {
+    console.error("Élément .card introuvable");
+    return;
+  }
+
+  function handleTap(clientX) {
+    var rect = cardEl.getBoundingClientRect();
+    var centerX = rect.left + rect.width / 2;
+
+    if (clientX < centerX) {
+      showPrevCard();
+    } else {
+      showNextCard();
+    }
+  }
+
+  // Click (desktop ou iPad quand il génère un click)
+  cardEl.addEventListener("click", function (event) {
+    handleTap(event.clientX);
+  });
+
+  // Touch (iPad)
+  cardEl.addEventListener("touchstart", function (event) {
+    if (event.touches && event.touches.length > 0) {
+      var touch = event.touches[0];
+      handleTap(touch.clientX);
+      event.preventDefault(); // évite certains comportements par défaut
+    }
+  });
+}
+
+// 5) Initialisation
 document.addEventListener("DOMContentLoaded", function () {
   if (cards.length === 0) {
     console.warn("Aucune carte définie pour le moment.");
     return;
   }
 
-  // Afficher la première carte
   currentIndex = 0;
   renderCard(cards[currentIndex]);
+  setupCardNavigation();
 
-  // Récupérer les zones de navigation
-  var navLeft = document.getElementById("nav-left");
-  var navRight = document.getElementById("nav-right");
-
-  if (navLeft) {
-    navLeft.addEventListener("click", function () {
-      showPrevCard();
-    });
-    // Optionnel : touchstart pour iOS
-    navLeft.addEventListener("touchstart", function (event) {
-      event.preventDefault();
-      showPrevCard();
-    });
-  }
-
-  if (navRight) {
-    navRight.addEventListener("click", function () {
-      showNextCard();
-    });
-    // Optionnel : touchstart pour iOS
-    navRight.addEventListener("touchstart", function (event) {
-      event.preventDefault();
-      showNextCard();
-    });
-  }
-
-  console.log("Flashcards iPad - navigation gauche/droite initialisée.");
+  console.log("Flashcards iPad - navigation via tap gauche/droite initialisée.");
 });
+
