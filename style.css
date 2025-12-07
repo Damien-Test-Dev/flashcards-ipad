@@ -128,26 +128,3 @@ body {
   justify-content: space-between;
   color: rgba(0, 0, 0, 0.68);
 }
-
-/* Zones de navigation invisibles (gauche/droite) */
-.nav-zone {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  z-index: 10;
-  /* pas de background pour rester invisibles */
-}
-
-.nav-left {
-  left: 0;
-}
-
-.nav-right {
-  right: 0;
-}
-
-/* Optionnel : changer le curseur sur desktop (sur iPad ça ne se voit pas) */
-.nav-zone {
-  cursor: pointer;
-}
