@@ -133,38 +133,16 @@ body {
   opacity: 0.85;
 }
 
-/* Boutons de navigation */
-.card-nav-buttons {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.card-nav-buttons button {
-  flex: 1;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: none;
-  background: #1b2735;
-  color: #f5f5f5;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.card-nav-buttons button:active {
-  transform: scale(0.97);
-}
-
 /* Indication d'utilisation */
 .card-hint {
-  margin-top: 4px;
+  margin-top: 8px;
   font-size: 11px;
   color: rgba(0, 0, 0, 0.7);
 }
 
 /* Zone debug : affichage des logs JS directement dans la page */
 .debug-log {
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 10px;
   max-height: 60px;
   overflow-y: auto;
