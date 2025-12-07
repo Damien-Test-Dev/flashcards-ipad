@@ -17,42 +17,43 @@
 <body>
   <div class="app">
     <div class="card" id="card">
+      <!-- Header : bouton Mélanger + compteur de tirage -->
       <div class="card-header">
-        <!-- Zone gauche : bouton Mélanger + thème -->
         <div class="card-header-left">
           <button id="btn-shuffle" type="button" class="shuffle-button">🔀</button>
-          <div class="card-theme" id="card-theme">THÈME</div>
+          <div class="card-cycle" id="card-cycle">
+            Carte 000 / 040
+          </div>
         </div>
+      </div>
 
-        <!-- Titre de la carte -->
-        <div class="card-title" id="card-title">Titre de la carte</div>
-
-        <!-- Petite icône (placeholder) -->
-        <div class="card-icon" id="card-icon">★</div>
+      <!-- Titre / nom de la carte -->
+      <div class="card-title" id="card-title">
+        Aucune carte tirée
       </div>
 
       <div class="card-body">
         <!-- Image (plus petite) -->
         <div class="card-media" id="card-image">
-          IMAGE
+          —
         </div>
 
         <!-- Texte de révision, aéré -->
         <div class="card-text" id="card-text">
-          Texte de la carte.
+          Appuie sur 🔀 pour tirer la première carte du deck.
         </div>
       </div>
 
-      <!-- Bas : uniquement numéro de carte -->
+      <!-- Bas : numéro d'identification de la carte (cardId) -->
       <div class="card-footer">
-        <div class="card-number" id="card-number">
-          Carte 001 / 040
+        <div class="card-id" id="card-id">
+          ID : —
         </div>
       </div>
 
       <!-- Indication d'utilisation -->
       <div class="card-hint">
-        Appuie sur 🔀 pour tirer la prochaine carte. 40 tirages = 40 cartes différentes, puis un nouveau cycle.
+        Chaque clic sur 🔀 affiche une nouvelle carte. 40 clics = 40 cartes différentes, puis un nouveau cycle.
       </div>
 
       <!-- Zone debug (pour voir les logs JS) -->
