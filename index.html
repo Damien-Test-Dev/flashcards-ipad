@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Flashcards iPad</title>
+
+  <!-- Adaptation à l'écran de l'iPad -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Mode pseudo-app quand ajoutée à l'écran d'accueil -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Flashcards">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="card">
+      <div class="card-header">
+        <!-- Haut gauche : thème -->
+        <div class="card-theme">MAGIE</div>
+
+        <!-- Haut centre : titre -->
+        <div class="card-title">Modèle de Flashcard</div>
+
+        <!-- Haut droite : icône placeholder -->
+        <div class="card-icon">★</div>
+      </div>
+
+      <div class="card-body">
+        <!-- Centre : zone image -->
+        <div class="card-image">
+          IMAGE
+        </div>
+
+        <!-- Sous l'image : texte -->
+        <div class="card-text">
+          Ceci est un modèle de carte. Plus tard, tu pourras y mettre ton contenu
+          d'apprentissage : vocabulaire, concepts, définitions, etc.
+        </div>
+      </div>
+
+      <!-- Bas : ATK / DEF + numéro de carte -->
+      <div class="card-footer">
+        <div class="card-stats">
+          ATK 1800 / DEF 1200
+        </div>
+        <div class="card-number">
+          N° 001
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
