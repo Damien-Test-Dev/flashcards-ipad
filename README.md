@@ -99,3 +99,50 @@ Flashcards iPad Project
   - des indicateurs visuels en bas de carte.
 - Refonte du layout :
   - compteur `Carte XXX / 040` positionné à
+ 
+### Sprint 7 – Nettoyage du debug et stabilisation de la version “clean”
+
+**Objectif :** Obtenir une version stable, simple et utilisable au quotidien, sans aucun élément technique (debug) visible dans l’interface.
+
+**Travaux réalisés :**
+- Suppression complète de toute la couche de debug côté UI :
+  - retrait de la zone `debug-log` du HTML,
+  - suppression des boutons **Debug** et **Close**,
+  - suppression du conteneur visuel de debug et de son style CSS associé.
+- Simplification du JavaScript :
+  - suppression de la fonction de log visuel et de toute la logique liée à l’affichage/masquage du panneau debug,
+  - conservation exclusive de la logique métier de l’application : deck, mélange, tirage et mise à jour de la carte.
+- Consolidation du moteur de tirage :
+  - génération d’un ordre mélangé via `shuffledOrder`,
+  - **40 clics successifs sur le bouton 🔀 = 40 cartes différentes**, puis régénération d’un nouvel ordre pour un nouveau cycle,
+  - mise à jour du compteur `Carte XXX / 040` en cohérence avec la position dans le cycle.
+- UX finale avant contenu ISTQB :
+  - au chargement : **carte de départ** (“Carte de départ / CLICK TO START”) affichée statiquement,
+  - après clic sur 🔀 : cartes de révision affichées une par une,
+  - interface visuellement épurée, sans bruit technique, prête à recevoir du vrai contenu pédagogique.
+
+
+### Sprint 8 – Remplissage des 40 cartes avec du contenu ISTQB Foundation
+
+**Objectif :** Transformer le deck vide en véritable outil de révision ISTQB Foundation (version française), tout en conservant la mécanique simple de tirage aléatoire.
+
+**Travaux réalisés :**
+- Remplacement du deck généré automatiquement par **40 cartes réelles** couvrant les principaux concepts ISTQB Foundation :
+  - objectifs du test logiciel, notions d’erreur/défaut/échec, lien avec la qualité,
+  - les 7 principes du test,
+  - processus de test et principales activités,
+  - niveaux et types de test (fonctionnels, non fonctionnels, régression, confirmation),
+  - tests statiques, dynamiques et revues,
+  - techniques de conception de tests (boîte noire, boîte blanche, tests basés sur l’expérience),
+  - gestion des tests (plan, risque, environnement, données, métriques),
+  - outils de test (gestion de tests, gestion des défauts, automatisation),
+  - indépendance des tests, compétences du testeur,
+  - rappel de la structure de l’examen ISTQB Foundation et conseils de révision.
+- Maintien de la mécanique de navigation :
+  - un seul bouton 🔀,
+  - **40 clics successifs = 40 cartes différentes**, puis nouveau mélange du deck pour un nouveau cycle.
+- Ajustement de la carte de départ pour refléter le contexte :
+  - Titre : `ISTQB – Carte de départ`,
+  - Message d’introduction orienté révision ISTQB Foundation,
+  - zone “image” utilisée comme étiquette de catégorie (CONCEPT, PRINCIPE, TECHNIQUE, etc.).
+
