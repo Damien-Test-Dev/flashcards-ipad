@@ -146,3 +146,29 @@ Flashcards iPad Project
   - Message d’introduction orienté révision ISTQB Foundation,
   - zone “image” utilisée comme étiquette de catégorie (CONCEPT, PRINCIPE, TECHNIQUE, etc.).
 
+
+
+### Sprint 9 – Icônes visuelles pour les cartes ISTQB
+
+**Objectif :** Enrichir visuellement le deck ISTQB en utilisant la zone “image” comme support d’icônes (émojis), pour coder le sens de chaque carte et favoriser la mémorisation.
+
+**Travaux réalisés :**
+- Ajout d’une **combinaison d’émojis** pour chacune des 40 cartes ISTQB, par exemple :
+  - concepts et objectifs : `🎯📘`, `💡🚨`, `💡⏱️`…
+  - processus et organisation : `⚙️🧭`, `🗂️📊`, `🧾🧭`…
+  - techniques de test (boîte noire / boîte blanche / expérience) : `📊🧮`, `📏🚧`, `🧭🧪`…
+  - risques, couverture, régression : `⚠️🎯`, `🔁🧪`, `📏📄`…
+  - outils et automatisation : `💻🗂️`, `💻🧯`, `🤖▶️`…
+  - examen et révision : `📝⏱️`, `🔁📚`, etc.
+- Chaque carte dispose désormais d’une **zone “image” expressive** :
+  - au moins deux émojis par carte,
+  - combinaisons choisies en fonction du contenu (principe, technique, outil, risque…),
+  - cohérence visuelle avec le titre et le texte de la carte.
+- Maintien de la mécanique de navigation :
+  - un seul bouton 🔀,
+  - **40 clics successifs = 40 cartes différentes**, puis régénération d’un nouvel ordre pour un nouveau cycle.
+- Adaptation de la carte de départ :
+  - zone “image” initiale affichant `💡📘 CLICK TO START` pour marquer le contexte de révision ISTQB.
+
+
+
