@@ -1,25 +1,10 @@
 // app.js
-// Sprint :
-// - carte de départ "click to start" au chargement
-// - 40 cartes avec id card1..card40
+// Version clean :
+// - carte de départ "Carte de départ / CLICK TO START" au chargement
+// - 40 cartes dynamiques avec tirage aléatoire sans répétition sur un cycle
 // - bouton 🔀 : 40 clics = 40 cartes différentes, puis nouveau cycle
 // - compteur Carte XXX / 040 à côté du bouton
-// - debug-log caché, affiché via bouton Debug et masqué via bouton Close
-
-// --- Utilitaire debug (affiche les messages dans la zone dédiée + console) ---
-function debug(message) {
-  var debugEl = document.getElementById("debug-log");
-  if (debugEl) {
-    var line = document.createElement("div");
-    line.textContent = message;
-    debugEl.appendChild(line);
-    debugEl.scrollTop = debugEl.scrollHeight;
-  }
-
-  if (window.console && console.log) {
-    console.log(message);
-  }
-}
+// - aucun code de debug visuel
 
 // 1) Deck de 40 cartes (générées en JS)
 // cardId = identifiant unique de la carte, indépendant de sa position.
@@ -57,7 +42,6 @@ function buildNewShuffleOrder() {
   }
 
   shufflePosition = 0;
-  debug("Nouveau mélange généré.");
 }
 
 // 3) Rendu d'une carte dans le DOM
@@ -68,7 +52,6 @@ function renderCard(card, positionInCycle) {
   var cycleEl = document.getElementById("card-cycle");
 
   if (!titleEl || !imageEl || !textEl || !cycleEl) {
-    debug("Erreur: un élément de la carte est introuvable dans le DOM.");
     return;
   }
 
@@ -87,27 +70,16 @@ function renderCard(card, positionInCycle) {
   } else {
     cycleEl.textContent = "Carte " + formatted + " / " + formattedTotal;
   }
-
-  debug(
-    "Carte affichée: index=" +
-      currentIndex +
-      " (cardId=" +
-      card.cardId +
-      "), position dans le cycle=" +
-      currentNumber
-  );
 }
 
 // 4) Tirer la carte suivante de l'ordre mélangé
 function drawNextCardFromShuffle() {
   if (cards.length === 0) {
-    debug("Aucune carte dans le deck.");
     return;
   }
 
   // Si on a consommé toutes les cartes du cycle, on régénère un ordre
   if (shuffledOrder.length === 0 || shufflePosition >= shuffledOrder.length) {
-    debug("Fin du cycle, génération d'un nouveau mélange.");
     buildNewShuffleOrder();
   }
 
@@ -121,53 +93,11 @@ function drawNextCardFromShuffle() {
 
   var card = cards[currentIndex];
   renderCard(card, positionInCycle);
-
-  debug(
-    "Carte tirée: index=" +
-      currentIndex +
-      " (cardId=" +
-      card.cardId +
-      "), position dans le cycle=" +
-      positionInCycle
-  );
 }
 
-// 5) Gestion de l'affichage du panneau debug
-function setupDebugPanel() {
-  var container = document.getElementById("card-debug-container");
-  var btnToggle = document.getElementById("btn-debug-toggle");
-  var btnClose = document.getElementById("btn-debug-close");
-
-  if (!container || !btnToggle || !btnClose) {
-    debug("Impossible de configurer le panneau debug (élément manquant).");
-    return;
-  }
-
-  // Caché par défaut
-  container.style.display = "none";
-
-  btnToggle.addEventListener("click", function () {
-    if (container.style.display === "none") {
-      container.style.display = "block";
-      debug("Panneau debug: affiché.");
-    } else {
-      container.style.display = "none";
-      debug("Panneau debug: masqué via bouton Debug.");
-    }
-  });
-
-  btnClose.addEventListener("click", function () {
-    container.style.display = "none";
-    debug("Panneau debug: masqué via bouton Close.");
-  });
-}
-
-// 6) Initialisation quand la page est prête
+// 5) Initialisation quand la page est prête
 document.addEventListener("DOMContentLoaded", function () {
-  debug("DOMContentLoaded déclenché.");
-
   if (cards.length === 0) {
-    debug("Aucune carte définie pour le moment.");
     return;
   }
 
@@ -177,14 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var btnShuffle = document.getElementById("btn-shuffle");
   if (btnShuffle) {
     btnShuffle.addEventListener("click", function () {
-      debug("Click sur bouton Mélanger (🔀)");
       drawNextCardFromShuffle();
     });
-  } else {
-    debug("Bouton btn-shuffle introuvable");
   }
-
-  setupDebugPanel();
-
-  debug("Initialisation terminée. Prêt pour le premier tirage.");
 });
