@@ -29,25 +29,18 @@
 
       <!-- Titre / nom de la carte -->
       <div class="card-title" id="card-title">
-        Aucune carte tirée
+        Carte de départ
       </div>
 
       <div class="card-body">
         <!-- Image (plus petite) -->
         <div class="card-media" id="card-image">
-          —
+          CLICK TO START
         </div>
 
         <!-- Texte de révision, aéré -->
         <div class="card-text" id="card-text">
-          Appuie sur 🔀 pour tirer la première carte du deck.
-        </div>
-      </div>
-
-      <!-- Bas : numéro d'identification de la carte (cardId) -->
-      <div class="card-footer">
-        <div class="card-id" id="card-id">
-          ID : —
+          Appuie sur le bouton 🔀 pour tirer la première carte du deck.
         </div>
       </div>
 
@@ -56,8 +49,19 @@
         Chaque clic sur 🔀 affiche une nouvelle carte. 40 clics = 40 cartes différentes, puis un nouveau cycle.
       </div>
 
-      <!-- Zone debug (pour voir les logs JS) -->
-      <div id="debug-log" class="debug-log"></div>
+      <!-- Zone debug (cachée par défaut) -->
+      <div class="card-debug-container" id="card-debug-container">
+        <div class="debug-header">
+          <span>Debug</span>
+          <button id="btn-debug-close" type="button" class="debug-close-button">Close</button>
+        </div>
+        <div id="debug-log" class="debug-log"></div>
+      </div>
+
+      <!-- Bouton Debug (affiche / cache la zone de log) -->
+      <button id="btn-debug-toggle" type="button" class="debug-toggle-button">
+        Debug
+      </button>
     </div>
   </div>
 
