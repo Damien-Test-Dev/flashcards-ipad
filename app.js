@@ -1,12 +1,12 @@
 // app.js
-// Refactor UI :
-// - plus de thème ni icône étoile
-// - compteur Carte XXX / 040 à côté du bouton 🔀
-// - ID de la carte en bas au centre
-// - aucune carte réelle affichée au chargement (état neutre)
-// - 40 clics = 40 cartes différentes, puis nouveau cycle
+// Sprint :
+// - carte de départ "click to start" au chargement
+// - 40 cartes avec id card1..card40
+// - bouton 🔀 : 40 clics = 40 cartes différentes, puis nouveau cycle
+// - compteur Carte XXX / 040 à côté du bouton
+// - debug-log caché, affiché via bouton Debug et masqué via bouton Close
 
-// --- Utilitaire debug (affiche les messages dans la page + console) ---
+// --- Utilitaire debug (affiche les messages dans la zone dédiée + console) ---
 function debug(message) {
   var debugEl = document.getElementById("debug-log");
   if (debugEl) {
@@ -66,9 +66,8 @@ function renderCard(card, positionInCycle) {
   var imageEl = document.getElementById("card-image");
   var textEl = document.getElementById("card-text");
   var cycleEl = document.getElementById("card-cycle");
-  var idEl = document.getElementById("card-id");
 
-  if (!titleEl || !imageEl || !textEl || !cycleEl || !idEl) {
+  if (!titleEl || !imageEl || !textEl || !cycleEl) {
     debug("Erreur: un élément de la carte est introuvable dans le DOM.");
     return;
   }
@@ -88,8 +87,6 @@ function renderCard(card, positionInCycle) {
   } else {
     cycleEl.textContent = "Carte " + formatted + " / " + formattedTotal;
   }
-
-  idEl.textContent = "ID : " + card.cardId;
 
   debug(
     "Carte affichée: index=" +
@@ -135,7 +132,37 @@ function drawNextCardFromShuffle() {
   );
 }
 
-// 5) Initialisation quand la page est prête
+// 5) Gestion de l'affichage du panneau debug
+function setupDebugPanel() {
+  var container = document.getElementById("card-debug-container");
+  var btnToggle = document.getElementById("btn-debug-toggle");
+  var btnClose = document.getElementById("btn-debug-close");
+
+  if (!container || !btnToggle || !btnClose) {
+    debug("Impossible de configurer le panneau debug (élément manquant).");
+    return;
+  }
+
+  // Caché par défaut
+  container.style.display = "none";
+
+  btnToggle.addEventListener("click", function () {
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      debug("Panneau debug: affiché.");
+    } else {
+      container.style.display = "none";
+      debug("Panneau debug: masqué via bouton Debug.");
+    }
+  });
+
+  btnClose.addEventListener("click", function () {
+    container.style.display = "none";
+    debug("Panneau debug: masqué via bouton Close.");
+  });
+}
+
+// 6) Initialisation quand la page est prête
 document.addEventListener("DOMContentLoaded", function () {
   debug("DOMContentLoaded déclenché.");
 
@@ -148,7 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
   buildNewShuffleOrder();
 
   var btnShuffle = document.getElementById("btn-shuffle");
-
   if (btnShuffle) {
     btnShuffle.addEventListener("click", function () {
       debug("Click sur bouton Mélanger (🔀)");
@@ -157,6 +183,8 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     debug("Bouton btn-shuffle introuvable");
   }
+
+  setupDebugPanel();
 
   debug("Initialisation terminée. Prêt pour le premier tirage.");
 });
