@@ -86,7 +86,7 @@ body {
   border: 2px solid #c3a46a;
 }
 
-/* Image plus contenue (environ 35–40% de la hauteur du corps) */
+/* Zone "image" avec émojis */
 .card-media {
   flex: 0 0 38%;
   border-radius: 10px;
@@ -107,12 +107,12 @@ body {
 .card-text {
   flex: 1;
   font-size: 15px;
-  line-height: 1.6;               /* plus aéré */
+  line-height: 1.6;
   color: #222;
   background: rgba(255, 255, 255, 0.97);
   border-radius: 8px;
   padding: 10px 12px;
-  overflow-y: auto;               /* si jamais le texte est un peu long */
+  overflow-y: auto;
 }
 
 /* Indication d'utilisation */
