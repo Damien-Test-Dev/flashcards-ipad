@@ -17,13 +17,10 @@
 <body>
   <div class="app">
     <div class="card" id="card">
-      <!-- Header : bouton Mélanger + compteur de tirage -->
+      <!-- Header : compteur -->
       <div class="card-header">
-        <div class="card-header-left">
-          <button id="btn-shuffle" type="button" class="shuffle-button">🔀</button>
-          <div class="card-cycle" id="card-cycle">
-            Carte 000 / 040
-          </div>
+        <div class="card-cycle" id="card-cycle">
+          Carte 000 / 040
         </div>
       </div>
 
@@ -33,20 +30,27 @@
       </div>
 
       <div class="card-body">
-        <!-- Zone "image" (étiquette visuelle avec émojis) -->
+        <!-- Zone "image" : émojis (1 à 10) -->
         <div class="card-media" id="card-image">
-          💡📘 CLICK TO START
+          💡📘
         </div>
 
-        <!-- Texte de révision, aéré -->
+        <!-- Texte de révision -->
         <div class="card-text" id="card-text">
-          Appuie sur le bouton 🔀 pour tirer une carte de révision ISTQB (niveau Foundation).
+          Appuie sur le bouton <strong>Nouvelle carte</strong> pour tirer une carte de révision ISTQB (niveau Foundation).
         </div>
+      </div>
+
+      <!-- Actions : bouton en bas, centré -->
+      <div class="card-actions">
+        <button id="btn-next" type="button" class="next-button" aria-label="Afficher une nouvelle carte">
+          🎲 Nouvelle carte
+        </button>
       </div>
 
       <!-- Indication d'utilisation -->
       <div class="card-hint">
-        Chaque clic sur 🔀 affiche une nouvelle carte ISTQB. 40 clics = 40 cartes différentes, puis un nouveau cycle.
+        Chaque appui sur <strong>Nouvelle carte</strong> affiche une carte différente. Après 40 cartes, un nouveau mélange démarre.
       </div>
     </div>
   </div>
