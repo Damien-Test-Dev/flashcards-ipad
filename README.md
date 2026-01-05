@@ -172,3 +172,29 @@ Flashcards iPad Project
 
 
 
+
+
+### Sprint 10 – Action unique “Nouvelle carte” (ergonomie iPad) + compat iOS 12
+
+**Objectif :** Rendre l’interaction plus naturelle et fiable sur iPad : un seul gros bouton ergonomique pour changer de carte, tout en conservant un tirage aléatoire **sans répétition** sur un cycle de 40 cartes.
+
+**Travaux réalisés :**
+- **Suppression du bouton 🔀** en haut à gauche (shuffle button).
+- Ajout d’un **bouton principal** en bas, centré et bien visible : **🎲 “Nouvelle carte”**.
+  - PC : clic
+  - iPad : tap
+  - **1 action = 1 nouvelle carte**
+- Conservation de la mécanique de tirage :
+  - ordre mélangé (Fisher-Yates) + pointeur de lecture,
+  - **40 actions = 40 cartes différentes (aucune répétition)**,
+  - à l’action suivante : **nouveau mélange** → nouveau cycle.
+- Ajustements UI/UX :
+  - header simplifié : compteur `Carte XXX / 040` centré.
+  - zone emoji optimisée : support de **1 à 10 émojis** (meilleure lisibilité).
+- Optimisations / robustesse iOS 12 :
+  - remplacement de `min()` par `width + max-width` et `height + max-height` (compat Safari iOS 12),
+  - ajout de `-webkit-overflow-scrolling: touch;` pour un scroll fluide dans la zone texte.
+
+**Résultat :**
+- Une app plus “flashcards” : action claire, ergonomique, sans risque de changement involontaire.
+- Révision plus efficace : chaque carte apparaît **une seule fois** par cycle de 40.
