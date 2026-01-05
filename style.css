@@ -1,13 +1,12 @@
 /* Reset léger */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: -apple-system, system-ui, "SF Pro Text", sans-serif;
   background: radial-gradient(circle at top, #1b2735 0, #090a0f 60%, #000 100%);
   color: #f5f5f5;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Container global, centré sur l'écran de l'iPad */
@@ -19,11 +18,16 @@ body {
   padding: 8px;
 }
 
-/* Carte principale */
+/* Carte principale (iOS 12 safe : pas de min()) */
 .card {
   position: relative;
-  width: min(90vw, 720px);   /* adapté à la largeur logique de l'iPad (768px) */
-  height: min(85vh, 960px);  /* occupe la majorité de la hauteur */
+
+  width: 90vw;
+  max-width: 720px;
+
+  height: 85vh;
+  max-height: 960px;
+
   background: #d9c89a;
   border-radius: 18px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
@@ -31,47 +35,36 @@ body {
   display: flex;
   flex-direction: column;
   border: 3px solid #a88b4a;
+
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-/* Header : bouton mélanger + compteur Carte XXX / 040 */
+/* Header : compteur Carte XXX / 040 */
 .card-header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-bottom: 6px;
   font-size: 14px;
 }
 
-.card-header-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.shuffle-button {
-  padding: 4px 6px;
-  border-radius: 6px;
-  border: none;
-  background: #1b2735;
-  color: #f5f5f5;
-  font-size: 16px;
-}
-
-.shuffle-button:active {
-  transform: scale(0.95);
-}
-
 .card-cycle {
-  font-weight: 600;
+  font-weight: 700;
+  color: rgba(0,0,0,0.8);
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(0,0,0,0.15);
+  padding: 6px 10px;
+  border-radius: 10px;
 }
 
 /* Titre de la carte */
 .card-title {
-  margin-top: 4px;
-  margin-bottom: 8px;
-  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  font-weight: 800;
   font-size: 20px;
   text-align: center;
+  color: rgba(0,0,0,0.85);
 }
 
 /* Corps : image + texte */
@@ -86,21 +79,31 @@ body {
   border: 2px solid #c3a46a;
 }
 
-/* Zone "image" avec émojis */
+/* Zone "image" : émojis (1..10) */
 .card-media {
-  flex: 0 0 38%;
+  flex: 0 0 34%;
   border-radius: 10px;
   border: 2px solid #b48a3c;
   background: linear-gradient(135deg, #254b82, #7b1f5b);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   color: #f5f5f5;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  font-weight: 700;
+
+  /* Important : pas d'espacement artificiel sur des émojis */
+  letter-spacing: 0;
+  text-transform: none;
+
   text-align: center;
-  padding: 6px;
+  padding: 10px;
+
+  font-size: 32px;
+  line-height: 1.2;
+  white-space: normal;
+  word-break: break-word;
 }
 
 /* Texte : zone de révision, aérée */
@@ -113,11 +116,49 @@ body {
   border-radius: 8px;
   padding: 10px 12px;
   overflow-y: auto;
+
+  /* Confort scroll iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Actions : bouton en bas, centré */
+.card-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Gros bouton ergonomique */
+.next-button {
+  width: 78%;
+  max-width: 440px;
+  min-height: 60px;
+
+  border-radius: 16px;
+  border: 2px solid rgba(0,0,0,0.25);
+
+  background: #1b2735;
+  color: #f5f5f5;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.next-button:active {
+  transform: scale(0.98);
 }
 
 /* Indication d'utilisation */
 .card-hint {
-  margin-top: 8px;
+  margin-top: 10px;
   font-size: 11px;
   color: rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
